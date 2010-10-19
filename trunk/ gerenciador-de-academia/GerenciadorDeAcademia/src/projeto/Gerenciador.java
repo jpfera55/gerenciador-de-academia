@@ -40,7 +40,7 @@ public class Gerenciador {
 				
 				if (loginAdm.toString().equals("adm") && senhaAdm.toString().equals("")){
 					System.out.print("Por favor digite sua nova senha:");
-					senhaAdm = input.next();
+					senhaAdm = input.nextLine();
 				}
 				
 				break;
