@@ -43,6 +43,30 @@ public class Gerenciador {
 					senhaAdm = input.nextLine();
 				}
 				
+				do {
+					System.out.print("O que voce deseja fazer?/n" +
+							"1 - cadastrar novo aluno" +
+							"2 - cadastrar aparelho" +
+							"3 - cadastrar novo exercicio"+
+							"4 - sair do sitema"
+							);
+					int option2 = input.nextInt();
+						
+					switch(option2){
+					
+					case 1:
+						break;
+					case 2:
+						break;
+					case 3:
+						break;
+					case 4:
+						break;
+					default:
+						break;
+					}
+				} while (option != 4);//numero de opcoes do segundo menu
+				
 				break;
 			case 2:
 				
