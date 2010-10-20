@@ -52,7 +52,10 @@ public class Equipamento {
 	 * 		String que representa o novo nome do equipamento.
 	 */
 
-	public void setNome(String nome) {
+	public void setNome(String nome) throws Exception{
+		if(nome==null||nome.replaceAll(" ","").equals("")){
+			throw new Exception("Nome inváldo!");
+		}
 		this.nome = nome;
 	}
 	
