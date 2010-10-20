@@ -4,6 +4,7 @@ public class Administrador {
 	
 	public String login;
 	public String senha;
+	final private String STRING_VAZIA = "";
 	
 	
 	public Administrador(){
@@ -13,7 +14,10 @@ public class Administrador {
 		
 	}
 	
-	public void setSenha(String novaSenha){
+	public void setSenha(String novaSenha) throws Exception{
+		if (novaSenha == null || novaSenha.equals(STRING_VAZIA)) {
+			throw new Exception("Senha Invalida");
+		}
 		senha = novaSenha;
 	}
 	
