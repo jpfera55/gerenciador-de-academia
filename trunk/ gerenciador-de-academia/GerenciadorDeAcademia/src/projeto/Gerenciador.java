@@ -14,6 +14,8 @@ public class Gerenciador {
 	private static String senhaGeral;
 	private static List<Usuario> listaDeUsuarios = new ArrayList<Usuario>();
 	private static int numeroDeCadastro;
+	private static List<Exercicio> listaDeExercicio = new ArrayList<Exercicio>();
+	private static List<Aparelho> aparelhosSemExercicio = new ArrayList<Aparelho>();
 			
 
 	public static void main(String[] args) {
@@ -43,7 +45,7 @@ public class Gerenciador {
 				System.out.println("Bem Vindo David!");
 
 				if (adm.getLogin().equals("adm")&& adm.getSenha().equals("")) {
-					System.out.print("Por favor digite sua nova senha:");
+					System.out.print("Por favor digite sua nova senha: ");
 					senhaAdm = input.nextLine();
 					try {
 						adm.setSenha(senhaAdm);
@@ -89,8 +91,10 @@ public class Gerenciador {
 
 						break;
 					case 2:
+						cadastraAparelho();
 						break;
 					case 3:
+						cadastraExercicio();
 						break;
 					case 4:
 						break;
@@ -203,5 +207,92 @@ public class Gerenciador {
 			}
 		}
 	}
+	
+	private static void cadastraAparelho(){
+		Scanner input = new Scanner(System.in);
+		
+		try{
+			System.out.print("\nDigite o nome do aparelho: ");
+			String nomeDoAparelho = input.nextLine();
+			System.out.print("Digite a quantidade de aparelho: ");
+			String numeroDeAparelho = input.nextLine();
+			int quantidade = Integer.parseInt(numeroDeAparelho);
+			if(nomeDoAparelho == null||numeroDeAparelho == null||
+					nomeDoAparelho.replaceAll(" ","").equals("")||
+					numeroDeAparelho.replaceAll(" ","").equals("")|| quantidade <=0){
+					throw new Exception("Entradas inválidas!");
+				}
+			for(int i=0;i<quantidade;i++){
+				Aparelho aparelho = new Aparelho(nomeDoAparelho);
+				aparelhosSemExercicio.add(aparelho);
+				
+			}
+			System.out.println("\nAparelho cadastrado com sucesso!\n");
+		}catch(Exception excecao){
+			System.out.println("\nNão foi possivel cadastrar o aparelho!\n");
+		}
+	}
+	
+	private static void cadastraExercicio(){
+		Scanner input = new Scanner(System.in);
+		Scanner input2 = new Scanner(System.in);
+		
+		try{
+			// verificar se a lista de aparelhos esta vazia
+			if(aparelhosSemExercicio == null|| aparelhosSemExercicio.size()==0){
+				System.out.println("\nNão há nenhum aparelho cadastrado!");
+				throw new Exception();
+			}
+			
+			// pede nome do exercicio
+			System.out.print("\nDigite o nome do exercicio: ");
+			String nomeDoExercicio = input.nextLine();
+			
+			// imprime lista de aparelhos 
+			System.out.println("Lista de aparelhos que ainda não estão associados a um exercicio:\n" +
+					aparelhosSemExercicio.toString());
+			
+			// pede nome de aparelho
+			System.out.print("\nDigite o nome de um aparelho: ");
+			String nomeDoAparelho = input.nextLine();
+			
+			// verifica se as entradas são válidas
+			if(nomeDoExercicio == null||nomeDoExercicio.replaceAll(" ","").equals("")||
+					nomeDoAparelho == null||nomeDoAparelho.replaceAll(" ","").equals("")){
+				System.out.println("\nEntradas inválidas!");
+				throw new Exception();
+			}
+			
+			// verifica se o nome do exercicio já existe
+			Iterator iterador = listaDeExercicio.iterator();
+			while(iterador.hasNext()){
+				Exercicio exercicioExistente = (Exercicio) iterador.next();
+				if(exercicioExistente.getNome().equalsIgnoreCase(nomeDoExercicio)){
+					System.out.println("\nExercicio já existente!");
+					throw new Exception();
+				}
+			}
+			
+			// verifica se aparelho existe, se existir retira ele da lista de aparelhosSemExercicio
+			Iterator iterador2 = aparelhosSemExercicio.iterator();
+			while(iterador2.hasNext()){
+				Aparelho aparelhoExistente = (Aparelho) iterador2.next();
+				if(nomeDoAparelho.equalsIgnoreCase(aparelhoExistente.getNome())){
+					Exercicio novoExercicio = new Exercicio(nomeDoExercicio,aparelhoExistente);
+					listaDeExercicio.add(novoExercicio);
+					aparelhosSemExercicio.remove(aparelhoExistente);
+					System.out.println("Exercicio cadastrado com sucesso!");
+					break;
+				}
+			}
+			
+		}catch(Exception excecao){
+			System.out.println("\nNão foi possivel cadastrar o exercicio!\n");
+		}
+	}
+		
+	
+		
+	
 
 }

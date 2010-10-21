@@ -1,8 +1,12 @@
 package projeto;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class Exercicio {
 	
 	private String nome;
+	private List<Aparelho> listaDeAparelho = new ArrayList<Aparelho>();
 	
 	// construtor
 	
@@ -11,10 +15,27 @@ public class Exercicio {
 	 * 
 	 * @param String
 	 * 		Nome do exercicio.
+	 * @param Aparelho
+	 * 		Aparelho a ser adicionado ao exercicio.
 	 */
 	
-	public Exercicio(String nome){
+	public Exercicio(String nome, Aparelho aparelho){
 		this.nome = nome;
+		this.listaDeAparelho.add(aparelho);
+	}
+	
+	/**
+	 * Cria um exercicio.
+	 * 
+	 * @param String
+	 * 		Nome do exercicio.
+	 * @param List<Aparelho.
+	 * 		lista de aparelho a ser adicionado ao exercicio.
+	 */
+	
+	public Exercicio(String nome, List<Aparelho> listaDeAparelho){
+		this.nome = nome;
+		this.listaDeAparelho = listaDeAparelho;
 	}
 
 	// metodos
@@ -45,6 +66,52 @@ public class Exercicio {
 	}
 	
 	/**
+	 * Recupera a lista de aparelhos.
+	 * 
+	 * @return List<Aparelho>
+	 * 		lista de aparelhos associados ao aparelho.
+	 */
+	
+	public List<Aparelho> getListaDeAparelho() {
+		return listaDeAparelho;
+	}
+	
+	/**
+	 * Altera a lista de aparelho.
+	 * 
+	 * @param listaDeAparelho
+	 * 		Nova lista de aparelho associada ao exercicio.
+	 */
+
+	public void setListaDeAparelho(List<Aparelho> listaDeAparelho) {
+		this.listaDeAparelho = listaDeAparelho;
+	}
+	
+	/**
+	 * Adiciona um aparelho a lista de aparelhos do exercicio.
+	 * 
+	 * @param aparelho
+	 * 		aparelho a ser adicionado.
+	 */
+	
+	public void addAparelho(Aparelho aparelho){
+		this.listaDeAparelho.add(aparelho);
+	}
+	
+	/**
+	 * Remove um aparelho da lista de aparelhos do exercicio.
+	 * 
+	 * @param aparelho
+	 * 		aparelho a ser removido.
+	 * @return boolean
+	 * 		true se o aparelho for removido, false caso contrário.
+	 */
+	
+	public boolean removeAparelho(Aparelho aparelho){
+		return this.listaDeAparelho.remove(aparelho);
+	}
+
+	/**
 	 * Representa o exercicio como String.
 	 * 
 	 * @return String
@@ -52,11 +119,11 @@ public class Exercicio {
 	 */
 	
 	public String toString() {
-		return "Exercicio: " + nome;
+		return "Exercicio: " + nome + "\nAparelhos: " + listaDeAparelho.toString();
 	}
 	
 	/**
-	 * Testa a igualdade de um objeto com este equipamento.
+	 * Testa a igualdade de um objeto com este exercicio.
 	 * 
 	 * @return boolean
 	 * 		True se possuir os atributos iguais, false caso contrário.
