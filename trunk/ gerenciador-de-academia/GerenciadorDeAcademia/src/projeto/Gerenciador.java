@@ -69,17 +69,17 @@ public class Gerenciador {
 						Scanner inputUsuario = new Scanner(System.in);
 						System.out.print("Digite o nome do aluno : ");
 						String nome = inputUsuario.nextLine();
-						System.out.print("Digite o CPF do aluno : ");
+						System.out.print("Digite o CPF do aluno(nnn.nnn.nnn-nn) : ");
 						String cpf = inputUsuario.nextLine();
 						System.out.print("Digite o endereco do aluno : ");
 						String endereco = inputUsuario.nextLine();
-						System.out.print("Digite a data de nascimento do aluno : ");
+						System.out.print("Digite a data de nascimento do aluno(dd/mm/aaaa) : ");
 						String data = inputUsuario.nextLine();
 						System.out.print("Digite os problemas medicos do aluno : ");
 						String problemas = inputUsuario.nextLine();
-						System.out.print("Digite o login do aluno : ");
+						System.out.print("Digite o login do aluno(Apenas letras e numeros) : ");
 						String login = inputUsuario.nextLine();
-						System.out.print("Digite a senha do aluno : ");
+						System.out.print("Digite a senha do aluno(Apenas letras e numeros) : ");
 						String senha = inputUsuario.nextLine();
 						try {
 							verificacaoDeDados(login,nome,cpf);
