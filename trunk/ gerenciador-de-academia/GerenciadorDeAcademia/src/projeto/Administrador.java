@@ -13,21 +13,35 @@ public class Administrador {
 		login = "adm";
 		
 	}
-	
-	public void setSenha(String novaSenha) throws Exception{
+	/**
+	 * troca a senha do administrador
+	 * @param novaSenha
+	 * @throws Exception
+	 */
+	public void setSenha(String novaSenha)throws Exception{
 		if (novaSenha == null || novaSenha.equals(STRING_VAZIA)) {
 			throw new Exception("Senha Invalida");
 		}
 		senha = novaSenha;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 * retorna senha
+	 */
 	public String getSenha(){
 		return senha;
 	}
-	
+	/**
+	 * 
+	 * @return 
+	 * retorna login
+	 */
 	public String getLogin(){
 		return login;
 	}
-	
-	
+	  	
+    	
 }
+	
+	
