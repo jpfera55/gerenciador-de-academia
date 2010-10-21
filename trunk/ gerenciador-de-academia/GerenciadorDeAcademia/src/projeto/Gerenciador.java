@@ -58,8 +58,9 @@ public class Gerenciador {
 					System.out.print("O que voce deseja fazer?\n"
 							+ "1 - Cadastrar novo aluno\n"
 							+ "2 - Cadastrar aparelho\n"
-							+ "3 - Cadastrar novo exercicio\n"
-							+ "4 - Sair do sistema\n"+"Digite a opcao desejada : ");
+							+ "3 - Cadastrar novo exercicio\n" 
+							+ "4 - Adicionar aparelho a um exercicio\n"
+							+ "5 - Sair do sistema\n"+"Digite a opcao desejada : ");
 					option2 = input.nextInt();
 
 					switch (option2) {
@@ -97,6 +98,9 @@ public class Gerenciador {
 						cadastraExercicio();
 						break;
 					case 4:
+						alteraExercicio();
+						break;
+					case 5:
 						break;
 					default:
 						break;
@@ -235,7 +239,6 @@ public class Gerenciador {
 	
 	private static void cadastraExercicio(){
 		Scanner input = new Scanner(System.in);
-		Scanner input2 = new Scanner(System.in);
 		
 		try{
 			// verificar se a lista de aparelhos esta vazia
@@ -249,7 +252,7 @@ public class Gerenciador {
 			String nomeDoExercicio = input.nextLine();
 			
 			// imprime lista de aparelhos 
-			System.out.println("Lista de aparelhos que ainda não estão associados a um exercicio:\n" +
+			System.out.println("\nLista de aparelhos que ainda não estão associados a um exercicio:\n" +
 					aparelhosSemExercicio.toString());
 			
 			// pede nome de aparelho
@@ -274,21 +277,90 @@ public class Gerenciador {
 			}
 			
 			// verifica se aparelho existe, se existir retira ele da lista de aparelhosSemExercicio
-			Iterator iterador2 = aparelhosSemExercicio.iterator();
-			while(iterador2.hasNext()){
-				Aparelho aparelhoExistente = (Aparelho) iterador2.next();
-				if(nomeDoAparelho.equalsIgnoreCase(aparelhoExistente.getNome())){
-					Exercicio novoExercicio = new Exercicio(nomeDoExercicio,aparelhoExistente);
-					listaDeExercicio.add(novoExercicio);
-					aparelhosSemExercicio.remove(aparelhoExistente);
-					System.out.println("Exercicio cadastrado com sucesso!");
-					break;
-				}
+			if(verificaSeAparelhoExiste(nomeDoAparelho)!=null){
+				Aparelho aparelho = verificaSeAparelhoExiste(nomeDoAparelho);
+				Exercicio novoExercicio = new Exercicio(nomeDoExercicio,aparelho);
+				listaDeExercicio.add(novoExercicio);
+				aparelhosSemExercicio.remove(aparelho);
+				System.out.println("Exercicio cadastrado com sucesso!");
 			}
+			
 			
 		}catch(Exception excecao){
 			System.out.println("\nNão foi possivel cadastrar o exercicio!\n");
 		}
+	}
+
+	public static void alteraExercicio(){
+		Scanner input = new Scanner(System.in);
+		
+		try{
+			// verificar se a lista de aparelhos esta vazia
+			if(aparelhosSemExercicio == null|| aparelhosSemExercicio.size()==0){
+				System.out.println("\nNão há nenhum aparelho cadastrado!");
+				throw new Exception();
+			}
+			
+			// verifica se ha exercicio cadastrado
+			if(listaDeExercicio == null|| listaDeExercicio.size()==0){
+				System.out.println("Nenhum exercicio cadastrado!");
+				throw new Exception();
+			}
+			
+			// pede nome do exercicio
+			System.out.print("\nDigite o nome do exercicio: ");
+			String nomeDoExercicio = input.nextLine();
+			
+			// verifica se o nome do exercicio é válido
+			if(nomeDoExercicio == null||nomeDoExercicio.replaceAll(" ","").equals("")){
+				System.out.println("\nNome inválido!");
+				throw new Exception();
+			}
+			
+			// verifica se o nome do exercicio já existe, se sim, será possivel associar aparelho ao exercicio 
+			Iterator iterador = listaDeExercicio.iterator();
+			while(iterador.hasNext()){
+				Exercicio exercicioExistente = (Exercicio) iterador.next();
+				if(exercicioExistente.getNome().equalsIgnoreCase(nomeDoExercicio)){
+					boolean status = true;
+					while(status){
+						// imprime lista de aparelhos 
+						System.out.println("\nLista de aparelhos que ainda não estão associados a um exercicio:\n" +
+								aparelhosSemExercicio.toString());
+						System.out.print("\nDigite o nome do aparelho que quer associar ao exercicio: ");
+						String aparelho = input.nextLine();
+						
+						if(verificaSeAparelhoExiste(aparelho)==null|| aparelho.equals("")){
+							status = false;
+							System.out.println("\nAlterações realizadas com sucesso!");
+						}else{
+							exercicioExistente.addAparelho(verificaSeAparelhoExiste(aparelho));
+							aparelhosSemExercicio.remove(verificaSeAparelhoExiste(aparelho));
+							System.out.println("\nAparelho adicionado com sucesso!");
+						}
+					}
+				}else{
+					System.out.println("Nome de exercicio inválido!");
+					break;
+				}
+			}
+			
+			
+		}catch(Exception excecao){
+			System.out.println("Nao foi possivel alterar exercicio!");
+		}
+		
+	}
+	
+	private static Aparelho verificaSeAparelhoExiste(String nomeDoAparelho){
+		Iterator iterador2 = aparelhosSemExercicio.iterator();
+		while(iterador2.hasNext()){
+			Aparelho aparelhoExistente = (Aparelho) iterador2.next();
+			if(nomeDoAparelho.equalsIgnoreCase(aparelhoExistente.getNome())){
+				return aparelhoExistente;
+			}
+		}
+		return null;
 	}
 		
 	
