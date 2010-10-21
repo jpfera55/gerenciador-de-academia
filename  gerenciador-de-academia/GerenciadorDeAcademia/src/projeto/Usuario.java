@@ -1,5 +1,6 @@
 package projeto;
 
+import java.util.regex.*;
 
 /**
  * 
@@ -41,25 +42,25 @@ public class Usuario {
 	 *             Se qualquer um dos parametros for nulo ou vazio.
 	 */
 	public Usuario(String nome, String cpf, String endereco,String dataDeNascimento,String problemaMedico,String login , String senha) throws Exception {
-		if (nome == null || nome.equals(STRING_VAZIA)) {
+		if (nome == null || nome.equals(STRING_VAZIA)||!(checarNome(nome))) {
 			throw new Exception("Nome invalido");
 		}
-		if (cpf == null || nome.equals(STRING_VAZIA)) {
+		if (cpf == null || cpf.equals(STRING_VAZIA)||!(checarCPF(cpf))) {
 			throw new Exception("CPF invalido");
 		}
 		if (endereco == null || endereco.equals(STRING_VAZIA)) {
 			throw new Exception("Endereco invalido");
 		}
-		if (dataDeNascimento == null || dataDeNascimento.equals(STRING_VAZIA)){
+		if (dataDeNascimento == null || dataDeNascimento.equals(STRING_VAZIA)||!(checarData(dataDeNascimento))){
 			throw new Exception("Data de nascimento invalida");
 		}
 		if (problemaMedico == null ){
 			throw new Exception("Problema Medico invalido");
 		}
-		if (login == null || login.equals(STRING_VAZIA)){
+		if (login == null || login.equals(STRING_VAZIA)||!(checarSenha(login))){
 			throw new Exception("Login invalido");
 		}
-		if (senha == null || senha.equals(STRING_VAZIA)){
+		if (senha == null || senha.equals(STRING_VAZIA)||!(checarSenha(senha))){
 			throw new Exception("Senha invalida");
 		}
 		this.nome = nome;
@@ -149,6 +150,75 @@ public class Usuario {
 		this.senha = senhaNova;
 
 	}
+
+	/**
+	 * Verifica se um cpf é valido
+	 * 
+	 * @param cpf
+	 *            O cpf a ser verificado.
+	 * @return true se for valido e false se nao.
+	 */
+	public static boolean checarCPF(String cpf) {
+        Pattern padrao = Pattern.compile("[0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2}");
+        Matcher meta = padrao.matcher(cpf);
+        if(!(meta.matches())){
+            return false;
+        }
+        return true;
+    }
+	
+	/**
+	 * Verifica se uma data é valido
+	 * 
+	 * @param data
+	 *            O data a ser verificado.
+	 * @return true se for valido e false se nao.
+	 */
+     
+    public static boolean checarData(String data) {
+        Pattern padrao = Pattern.compile("[0-9]{2}/[0-9]{2}/[0-9]{4}");
+        Matcher meta = padrao.matcher(data);
+        if(!(meta.matches())){
+            return false;
+        }
+        return true;
+    }
+    /**
+	 * Verifica se um nome é valido
+	 * 
+	 * @param nome
+	 *            O nome a ser verificado
+	 * @return true se for valido e false se nao.
+	 */
+    
+    public static boolean checarNome(String nome) {
+        nome = nome.replaceAll(" ", "");
+        nome = nome.toLowerCase();
+        Pattern padrao = Pattern.compile("\\p{Alpha}*");
+        Matcher meta = padrao.matcher(nome);
+        if(!(meta.matches())){
+            return false;
+        }
+        return true;
+    }
+    /**
+	 * Verifica se um senha é valida.
+	 * 
+	 * @param senha
+	 *            A senha a ser verificada
+	 * @return true se for valida e false se nao.
+	 */
+    
+    public static boolean checarSenha(String senha) throws Exception{
+        senha = senha.replaceAll(" ", "");
+        senha= senha.toLowerCase();
+        Pattern padrao = Pattern.compile("\\w*");
+        Matcher meta = padrao.matcher(senha);
+        if(!(meta.matches())){
+            return false;
+        }
+        return true;
+    }
     
 	@Override
 	public String toString() {
