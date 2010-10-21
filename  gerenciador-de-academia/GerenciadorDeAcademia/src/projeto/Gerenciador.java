@@ -1,9 +1,9 @@
 package projeto;
 
-
 import java.util.*;
 
 public class Gerenciador {
+	private static Administrador adm;
 	private static Scanner input2;
 	private static final int numeroDeOpcoes = 8;
 	private static Scanner input;
@@ -13,27 +13,28 @@ public class Gerenciador {
 	private static String loginGeral;
 	private static String senhaGeral;
 	private static List<Usuario> listaDeUsuarios = new ArrayList<Usuario>();
-	
+	private static int numeroDeCadastro;
 			
 
 	public static void main(String[] args) {
 
 		input = new Scanner(System.in);
-		input2 = new Scanner(System.in);
 		
-		loginAdm = "adm";
-		senhaAdm = "";
+		adm = new Administrador();
+		//loginAdm = "adm";
+	    //senhaAdm = "";
 
 		printHeader();
 
 		int option;
 		do {
+			Scanner inputGeral = new Scanner(System.in);
 			System.out.print("Login: ");
-			loginGeral = input.nextLine();
-			loginGeral = input.nextLine();
+			loginGeral = inputGeral.nextLine();
+			
 
 			System.out.print("Senha: ");
-			senhaGeral = input2.nextLine();
+			senhaGeral = inputGeral.nextLine();
 
 			option = readIntegerOption("> ", 1, numeroDeOpcoes);
 
@@ -41,39 +42,45 @@ public class Gerenciador {
 			case 1:
 				System.out.println("Bem Vindo David!");
 
-				if (loginAdm.toString().equals("adm")&& senhaAdm.toString().equals("")) {
+				if (adm.getLogin().equals("adm")&& adm.getSenha().equals("")) {
 					System.out.print("Por favor digite sua nova senha:");
 					senhaAdm = input.nextLine();
+					try {
+						adm.setSenha(senhaAdm);
+					} catch (Exception e) {
+						System.out.println(e.getMessage());
+					}
 				}
 				int option2;
 				do {
 					System.out.print("O que voce deseja fazer?\n"
-							+ "1 - cadastrar novo aluno\n"
-							+ "2 - cadastrar aparelho\n"
-							+ "3 - cadastrar novo exercicio\n"
-							+ "4 - sair do sitema\n");
+							+ "1 - Cadastrar novo aluno\n"
+							+ "2 - Cadastrar aparelho\n"
+							+ "3 - Cadastrar novo exercicio\n"
+							+ "4 - Sair do sistema\n"+"Digite a opcao desejada : ");
 					option2 = input.nextInt();
 
 					switch (option2) {
 
 					case 1:
+						Scanner inputUsuario = new Scanner(System.in);
 						System.out.print("Digite o nome do aluno : ");
-						String nome = input.nextLine();
-						String nome2 = input.nextLine();
+						String nome = inputUsuario.nextLine();
 						System.out.print("Digite o CPF do aluno : ");
-						String cpf = input.nextLine();
+						String cpf = inputUsuario.nextLine();
 						System.out.print("Digite o endereco do aluno : ");
-						String endereco = input.nextLine();
+						String endereco = inputUsuario.nextLine();
 						System.out.print("Digite a data de nascimento do aluno : ");
-						String data = input.nextLine();
+						String data = inputUsuario.nextLine();
 						System.out.print("Digite os problemas medicos do aluno : ");
-						String problemas = input.nextLine();
+						String problemas = inputUsuario.nextLine();
 						System.out.print("Digite o login do aluno : ");
-						String login = input.nextLine();
+						String login = inputUsuario.nextLine();
 						System.out.print("Digite a senha do aluno : ");
-						String senha = input.nextLine();
+						String senha = inputUsuario.nextLine();
 						try {
-							Usuario novoUsuario = new Usuario(nome2, cpf,endereco, data, problemas, login, senha);
+							verificacaoDeDados(login,nome,cpf);
+							Usuario novoUsuario = new Usuario(nome, cpf,endereco, data, problemas, login, senha);
 							listaDeUsuarios.add(novoUsuario);
 							System.out.println("\nUsuario cadastrado com sucesso!\n");
 						} catch (Exception e) {
@@ -97,12 +104,12 @@ public class Gerenciador {
 			case 2:
 				int opcao3;
 				do {
-					System.out.println("Bem Vindo " + usuarioAtual.getNome()+ "!");
+					System.out.println("\nBem Vindo " + usuarioAtual.getNome()+ "!\n");
 					menuUsuario();
 					opcao3 = input.nextInt();
 					switch (opcao3) {
 					case 1:
-						System.out.println(usuarioAtual.toString());
+						System.out.println(usuarioAtual.toString()+"NUMERO DE CADASTRO : "+numeroDeCadastro);
 						break;
                     case 2:
 						break;
@@ -114,7 +121,7 @@ public class Gerenciador {
 				break;
 
 			case 3:
-				System.out.println("3");
+				System.out.println("Login ou senha invalido(s)");
 				break;
 			case 4:
 				System.out.println("4");
@@ -143,31 +150,49 @@ public class Gerenciador {
 	private static boolean verificaCadastro() {
         for (int i = 0; i < listaDeUsuarios.size(); i++) {
         if (listaDeUsuarios.get(i).getLogin().equalsIgnoreCase(loginGeral)&& listaDeUsuarios.get(i).getSenha().equalsIgnoreCase(senhaGeral)) {
-				usuarioAtual = listaDeUsuarios.get(i);
+				numeroDeCadastro = i+1;
+        	    usuarioAtual = listaDeUsuarios.get(i);
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	private static void verificacaoDeDados(String loginNovo,String nomeNovo , String cpfNovo) throws Exception {
+		for (int i = 0; i < listaDeUsuarios.size(); i++) {
+			if (listaDeUsuarios.get(i).getLogin().equalsIgnoreCase(loginNovo)) {
+				throw new Exception("Login invalido(Pois ja existe esse login cadastrado!)");
+                }
+			if (listaDeUsuarios.get(i).getNome().equalsIgnoreCase(nomeNovo)) {
+				throw new Exception("Nome invalido(Pois ja existe esse nome cadastrado!)");
+                }
+			if (listaDeUsuarios.get(i).getCPF().equalsIgnoreCase(cpfNovo)) {
+				throw new Exception("CPF invalido(Pois ja existe esse CPF cadastrado!)");
+                }
+			
+		}
 
-	private static void menuUsuario() {
-		System.out
-				.println("\nMENU USUARIO : \n 1 - VERIFICAR DADOS \n 2 - SAIR \n DIGITE A OPCAO DESEJADA :");
 	}
 
-	private static int readIntegerOption(String message, int lowerLimit,
-			int upperLimit) {
+	private static void menuUsuario() {
+		System.out.println("\nMenu Usuario : \n 1 - Verificar dados \n 2 - Sair \nDigite a opcao desejada : ");
+	}
+
+	private static int readIntegerOption(String message, int lowerLimit,int upperLimit) {
 		while (true) {
 			try {
 				System.out.print(message);
 				Integer number = 1;
 
-				if (loginAdm.toString().equals(loginGeral.toString())&& senhaAdm.toString().equals(senhaGeral.toString())) {
+				if (adm.getLogin().equals(loginGeral)&& adm.getSenha().equals(senhaGeral)) {
 					number = 1;
 
 				} else if (verificaCadastro()) {
 
 					number = 2;
+				}
+				else{
+					number = 3;
 				}
 
 				while (number < lowerLimit || number > upperLimit)
