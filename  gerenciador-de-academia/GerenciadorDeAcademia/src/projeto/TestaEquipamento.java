@@ -11,7 +11,7 @@ public class TestaEquipamento {
 	
 	// Cria equipamento
 	public void criaEquipamento(){
-		exercicio = new Exercicio("Bíceps");
+		//exercicio = new Exercicio("Bíceps");
 		equipamento1 = new Equipamento("Voador");
 		equipamento2 = new Equipamento("Voador", exercicio);
 		equipamento3 = new Equipamento("Supino Reto", exercicio);
