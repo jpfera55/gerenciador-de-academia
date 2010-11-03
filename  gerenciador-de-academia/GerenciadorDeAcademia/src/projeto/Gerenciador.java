@@ -1,3 +1,6 @@
+// numero de cadastro deve ser criado quando cadastrar o aluno!!!
+// o array de usurio deveria ser uma colecao set
+
 package projeto;
 
 import java.util.*;
@@ -14,6 +17,8 @@ public class Gerenciador {
         private static int numeroDeCadastro;
         private static List<Exercicio> listaDeExercicio = new ArrayList<Exercicio>();
         private static List<Aparelho> aparelhosSemExercicio = new ArrayList<Aparelho>();
+        private static Set<GrupoMuscular> gruposMusculares = new HashSet<GrupoMuscular>();
+        private static GrupoMuscular grupoMuscularExistente, novoGrupoMuscular;
                        
 
         public static void main(String[] args) {
@@ -57,14 +62,17 @@ public class Gerenciador {
                                                         + "2 - Cadastrar aparelho\n"
                                                         + "3 - Cadastrar novo exercicio\n"
                                                         + "4 - Adicionar aparelho a um exercicio\n"
-                                                        + "5 - Deslogar\n"
-                                                        + "6 - Sair do sistema\n"
+                                                        + "5 - Alterar treino de um aluno\n"
+                                                        + "6 - Lista de treinos pendentes\n"
+                                                        + "7 - Remover aparelho\n"
+                                                        + "8 - Deslogar\n"
+                                                        + "9 - Sair do sistema\n"
                                                         +"Digite a opcao desejada : ");
                                         try{
                                         option2 = sc.nextInt();
                                         }catch(Exception e){
                                         	System.out.println("Opcao invalida");
-                                        	option2 = 5;
+                                        	option2 = 9;
                                         }
                                         switch (option2) {
 
@@ -107,8 +115,17 @@ public class Gerenciador {
                                                 alteraExercicio();
                                                 break;                                               
                                         case 5:
+                                        		editaTreino();
                                                 break;
                                         case 6:
+                                        		listaTreinosPendentes();
+                                            	break;
+                                        case 7:
+                                        		removeAparelho();
+                                            	break;
+                                        case 8: 
+                                        		break;
+                                        case 9:
                                         	System.out.println("Voce esta saindo do sistema, obrigado pelo uso!");
                                         		System.exit(0);
                                         default:
@@ -229,11 +246,9 @@ public class Gerenciador {
                                         numeroDeAparelho.replaceAll(" ","").equals("")|| quantidade <=0){
                                         throw new Exception("Entradas inválidas!");
                                 }
-                        for(int i=0;i<quantidade;i++){
-                                Aparelho aparelho = new Aparelho(nomeDoAparelho);
-                                aparelhosSemExercicio.add(aparelho);
-                               
-                        }
+                        Aparelho aparelho = new Aparelho(nomeDoAparelho, quantidade);
+                        aparelhosSemExercicio.add(aparelho);
+                        
                         System.out.println("\nAparelho cadastrado com sucesso!\n");
                 }catch(Exception excecao){
                         System.out.println("\nNão foi possivel cadastrar o aparelho!\n");
@@ -254,6 +269,10 @@ public class Gerenciador {
                         System.out.print("\nDigite o nome do exercicio: ");
                         String nomeDoExercicio = input.nextLine();
                        
+                        // pede o nome do grupo muscular
+                        System.out.print("\nDigite o nome do grupo muscular: ");
+                        String nomeDoGrupoMuscular = input.nextLine();
+                        
                         // imprime lista de aparelhos
                         System.out.println("\nLista de aparelhos que ainda não estão associados a um exercicio:\n" +
                                         aparelhosSemExercicio.toString());
@@ -263,7 +282,7 @@ public class Gerenciador {
                         String nomeDoAparelho = input.nextLine();
                        
                         // verifica se as entradas são válidas
-                        if(nomeDoExercicio == null||nomeDoExercicio.replaceAll(" ","").equals("")||
+                        if(nomeDoExercicio == null||nomeDoExercicio.replaceAll(" ","").equals("")|| nomeDoGrupoMuscular == null|| nomeDoGrupoMuscular.replaceAll(" ","").equals("")||
                                         nomeDoAparelho == null||nomeDoAparelho.replaceAll(" ","").equals("")){
                                 System.out.println("\nEntradas inválidas!");
                                 throw new Exception();
@@ -278,11 +297,38 @@ public class Gerenciador {
                                         throw new Exception();
                                 }
                         }
+                        
+                        // verifica se o nome do grupo muscular existe, se não pergunta se pode criá-lo
+                        boolean grupoMuscularExiste = false;
+                        Iterator iterador2 = gruposMusculares.iterator();
+                        while(iterador2.hasNext()){
+                            grupoMuscularExistente = (GrupoMuscular) iterador2.next();
+                            if(grupoMuscularExistente.getGrupoMuscular().equalsIgnoreCase(nomeDoGrupoMuscular)){
+                            	grupoMuscularExiste = true;
+                            }
+                        }
+                        if(!(grupoMuscularExiste)){
+                        	System.out.print("\nGrupo muscular inexistente, deseja cadastra-lo? ");
+                        	String cadastraGrupoMuscular = input.nextLine();
+                        	if(cadastraGrupoMuscular.equalsIgnoreCase("sim")){
+                        		novoGrupoMuscular = new GrupoMuscular(nomeDoGrupoMuscular);
+                        		gruposMusculares.add(novoGrupoMuscular);
+                        	}else{
+                        		throw new Exception("\nGrupo muscular inválido!");
+                        	}
+           
+                        }
+                        
                        
                         // verifica se aparelho existe, se existir retira ele da lista de aparelhosSemExercicio
+                        Exercicio novoExercicio;
                         if(verificaSeAparelhoExiste(nomeDoAparelho)!=null){
                                 Aparelho aparelho = verificaSeAparelhoExiste(nomeDoAparelho);
-                                Exercicio novoExercicio = new Exercicio(nomeDoExercicio,aparelho);
+                                if(grupoMuscularExiste){
+                                	novoExercicio = new Exercicio(grupoMuscularExistente,nomeDoExercicio,aparelho);
+                                }else{
+                                	novoExercicio = new Exercicio(novoGrupoMuscular, nomeDoExercicio,aparelho);
+                                }
                                 listaDeExercicio.add(novoExercicio);
                                 aparelhosSemExercicio.remove(aparelho);
                                 System.out.println("Exercicio cadastrado com sucesso!");
@@ -354,6 +400,22 @@ public class Gerenciador {
                 }
                
         }
+        
+        private static void editaTreino(){
+        	Scanner inputUsuario = new Scanner(System.in);
+            System.out.print("Digite o nome ou o nº de cadastro do aluno: ");
+            String usuario = inputUsuario.nextLine();
+            
+        	
+        }
+        
+        private static void listaTreinosPendentes(){
+        	
+        }
+        
+        private static void removeAparelho(){
+        	
+        }
        
         private static Aparelho verificaSeAparelhoExiste(String nomeDoAparelho){
                 Iterator iterador2 = aparelhosSemExercicio.iterator();
@@ -365,10 +427,14 @@ public class Gerenciador {
                 }
                 return null;
         }
-               
        
-               
-       
+        private static boolean verificaStringValido(String string){
+        	if(string==null||string.replaceAll(" ", "").equals("")){
+        		return false;
+        	}else{
+        		return true;
+        	}
+        }
 
 }
 

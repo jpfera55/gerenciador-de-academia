@@ -1,8 +1,15 @@
 package projeto;
 
+/**
+ * 
+ * @author Emanuel Carlos Albuquerque Alves
+ *
+ */
+
 public class Aparelho {
 	
 	private String nome;
+	private int quantidadeDeAparelho;
 	
 	// construtor
 	
@@ -14,12 +21,15 @@ public class Aparelho {
 	 
 	 */
 	
-	public Aparelho(String nome){
+	public Aparelho(String nome, int quantidadeDeAparelho){
 		this.nome = nome;
+		this.quantidadeDeAparelho = quantidadeDeAparelho;
 	}
 	
 	// metodos
 
+	
+	
 	/**
 	 * Recupera o nome.
 	 * 
@@ -32,17 +42,47 @@ public class Aparelho {
 	}
 	
 	/**
+	 * Recupera a quantidade de aparelho
+	 * 
+	 * @return int
+	 * 		quantidade de aparelho
+	 */
+	
+	public int getQuantidadeDeAparelho() {
+		return quantidadeDeAparelho;
+	}
+	
+	/**
+	 * Altera a quantidade de aparelho
+	 * 
+	 * @param quantidadeDeAparelho
+	 * 		nova quantidade de aparelho
+	 * @return boolean
+	 * 		true se a quantidade de aparelho for alterada, false caso contrario.
+	 */
+
+	public boolean setQuantidadeDeAparelho(int quantidadeDeAparelho) {
+		if(quantidadeDeAparelho>0){
+			this.quantidadeDeAparelho = quantidadeDeAparelho;
+			return true;
+		}
+		return false;
+		
+	}
+
+	/**
 	 * Altera o nome.
 	 * 
 	 * @param nome
 	 * 		String que representa o novo nome do aparelho.
 	 */
 
-	public void setNome(String nome) throws Exception{
+	public boolean setNome(String nome){
 		if(nome==null||nome.replaceAll(" ","").equals("")){
-			throw new Exception("Nome inváldo!");
+			return false;
 		}
 		this.nome = nome;
+		return true;
 	}
 	
 	/**
@@ -53,7 +93,7 @@ public class Aparelho {
 	 */
 	
 	public String toString() {
-		return "Aparelho: " + nome;
+		return "Aparelho: " + nome + " Quantidade: " + quantidadeDeAparelho;
 	}
 	
 	/**
