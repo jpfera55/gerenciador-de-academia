@@ -3,9 +3,16 @@ package projeto;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author Emanuel Carlos Albuquerque Alves
+ *
+ */
+
 public class Exercicio {
 	
 	private String nome;
+	private GrupoMuscular grupoMuscular;
 	private List<Aparelho> listaDeAparelho = new ArrayList<Aparelho>();
 	
 	// construtor
@@ -19,7 +26,8 @@ public class Exercicio {
 	 * 		Aparelho a ser adicionado ao exercicio.
 	 */
 	
-	public Exercicio(String nome, Aparelho aparelho){
+	public Exercicio(GrupoMuscular grupoMuscular, String nome, Aparelho aparelho){
+		this.grupoMuscular = grupoMuscular;
 		this.nome = nome;
 		this.listaDeAparelho.add(aparelho);
 	}
@@ -33,7 +41,8 @@ public class Exercicio {
 	 * 		lista de aparelho a ser adicionado ao exercicio.
 	 */
 	
-	public Exercicio(String nome, List<Aparelho> listaDeAparelho){
+	public Exercicio(GrupoMuscular grupoMuscular, String nome, List<Aparelho> listaDeAparelho){
+		this.grupoMuscular = grupoMuscular;
 		this.nome = nome;
 		this.listaDeAparelho = listaDeAparelho;
 	}
@@ -52,17 +61,42 @@ public class Exercicio {
 	}
 	
 	/**
+	 * Recupera o grupo muscular.
+	 * 
+	 * @return GrupoMuscular
+	 * 		grupo muscular do exercicio.
+	 */
+	
+	public GrupoMuscular getGrupoMuscular() {
+		return grupoMuscular;
+	}
+	
+	/**
+	 * Altera o grupo muscular
+	 * 
+	 * @param grupoMuscular
+	 * 		novo grupo muscular do exercicio.
+	 */
+
+	public void setGrupoMuscular(GrupoMuscular grupoMuscular) {
+		this.grupoMuscular = grupoMuscular;
+	}
+
+	/**
 	 * Altera o nome.
 	 * 
 	 * @param nome
 	 * 		String que representa o novo nome do exercicio.
+	 * @return boolean
+	 * 		true se o nome foi alterado, false caso contrario.
 	 */
 
-	public void setNome(String nome) throws Exception{
+	public boolean setNome(String nome){
 		if(nome==null||nome.replaceAll(" ","").equals("")){
-			throw new Exception("Nome inváldo!");
+			return false;
 		}
 		this.nome = nome;
+		return true;
 	}
 	
 	/**
