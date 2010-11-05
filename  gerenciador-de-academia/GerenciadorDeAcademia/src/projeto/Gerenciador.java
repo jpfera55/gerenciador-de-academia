@@ -152,11 +152,23 @@ public class Gerenciador {
                                                 System.out.println(usuarioAtual.toString()+"NUMERO DE CADASTRO : "+numeroDeCadastro);
                                                 break;
                                         case 2:
-                                                break;
+                    						Scanner inputNovaSenha = new Scanner(System.in);
+                                        	System.out.println("Digite sua nova senha :");
+                    						String senhaNova = inputNovaSenha.nextLine();
+                    						try{
+                    						usuarioAtual.setSenha(senhaNova);
+                    						}catch(Exception e){
+                    							System.out.println(e.getMessage());
+                    						}
+                                        	break;
+                                        case 3:
+                                        	
+                                        	break;
+                                        
                                         default:
-                                                break;
-                                        }
-                                } while (opcao3 != 2);
+                    						break;
+                    					}
+                                } while (opcao3 != 3);
 
                                 break;
 
@@ -203,7 +215,7 @@ public class Gerenciador {
         }
 
         private static void menuUsuario() {
-                System.out.println("\nMenu Usuario : \n 1 - Verificar dados \n 2 - Sair \nDigite a opcao desejada : ");
+                System.out.println("\nMenu Usuario : \n 1 - Verificar dados \n 2 - Trocar senha \n 3 - Sair \nDigite a opcao desejada : ");
         }
 
         private static int readIntegerOption(String message, int lowerLimit,int upperLimit) {
