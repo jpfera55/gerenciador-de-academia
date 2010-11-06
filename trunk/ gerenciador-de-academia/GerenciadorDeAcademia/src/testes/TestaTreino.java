@@ -25,7 +25,7 @@ public class TestaTreino {
 	private Treino treino1, treino2;
 	private GrupoMuscular grupoMuscular1, grupoMuscular2;
 	private Exercicio exercicio1, exercicio2, exercicio3, exercicio4, exercicio5;
-	private Aparelho aparelho1, aparelho2;
+	private Aparelho aparelho1, aparelho2, aparelho3;
 	
 	@Before
 	public void criaTreino()throws Exception{
@@ -44,6 +44,9 @@ public class TestaTreino {
 		treino1 = new Treino();
 		treino2 = new Treino();
 		
+		treino1.addGrupoMusucular(grupoMuscular1);
+		treino2.addGrupoMusucular(grupoMuscular2);
+		
 		treino1.addExercicio(exercicio1);
 		treino1.addExercicio(exercicio2);
 		treino1.addExercicio(exercicio3);
@@ -54,8 +57,7 @@ public class TestaTreino {
 	
 	@Test
 	public void testAddExercicio(){
-		treino1.addExercicio(exercicio5);
-		System.out.println(treino1.toString());
+				
 		// testa o metodo addExercicio() no caso de adicionar exercicio no
 		// grupo Muscular que já possui 3 exercicios adicionados
 		Assert.assertFalse(treino1.addExercicio(exercicio4));
@@ -79,6 +81,8 @@ public class TestaTreino {
 	public void testStatusTreino(){
 		Assert.assertTrue(treino1.statusTreino());
 		Assert.assertFalse(treino2.statusTreino());
+		aparelho1.setQuantidadeDeAparelho(0);
+		Assert.assertFalse(treino1.statusTreino());
 	}
 	
 	@Test
