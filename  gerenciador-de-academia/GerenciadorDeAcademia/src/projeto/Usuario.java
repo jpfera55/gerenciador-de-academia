@@ -17,6 +17,7 @@ public class Usuario {
 	private String problemaMedico;
     private String login;
     private String senha;
+    private Treino treino;
 
 	/**
 	 * Cria um Usuario apartir de um nome , cpf , endereco , data de nascimento
@@ -70,6 +71,17 @@ public class Usuario {
 		this.problemaMedico = problemaMedico;
 		this.login = login;
 		this.senha = senha;
+		this.treino = new Treino();
+	}
+	
+	/**
+	 * Recupera o treino do usuario.
+	 * 
+	 * @return o treino do usuario.
+	 */
+	
+	public Treino getTreino(){
+		return treino;
 	}
 
 	/**
