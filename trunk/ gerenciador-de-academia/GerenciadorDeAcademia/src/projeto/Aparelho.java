@@ -62,7 +62,7 @@ public class Aparelho {
 	 */
 
 	public boolean setQuantidadeDeAparelho(int quantidadeDeAparelho) {
-		if(quantidadeDeAparelho>0){
+		if(quantidadeDeAparelho>=0){
 			this.quantidadeDeAparelho = quantidadeDeAparelho;
 			return true;
 		}
