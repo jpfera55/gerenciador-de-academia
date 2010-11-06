@@ -1,11 +1,9 @@
-// numero de cadastro deve ser criado quando cadastrar o aluno!!!
-// o array de usurio deveria ser uma colecao set
-
 package projeto;
 
 import java.util.*;
 
 public class Gerenciador {
+	
         private static Administrador adm;
         private static final int numeroDeOpcoes = 8;
         private static Scanner input;
@@ -19,10 +17,9 @@ public class Gerenciador {
         private static List<Aparelho> aparelhosSemExercicio = new ArrayList<Aparelho>();
         private static Set<GrupoMuscular> gruposMusculares = new HashSet<GrupoMuscular>();
         private static GrupoMuscular grupoMuscularExistente, novoGrupoMuscular;
-                       
 
-        public static void main(String[] args) {
-
+        public static void main(String[] args) throws Exception{
+        	
                 input = new Scanner(System.in);
                
                 adm = new Administrador();
@@ -57,7 +54,7 @@ public class Gerenciador {
                                 int option2;
                                 do {
                                 	Scanner sc = new Scanner(System.in);
-                                        System.out.print("O que voce deseja fazer?\n"
+                                        System.out.print("\nO que voce deseja fazer?\n"
                                                         + "1 - Cadastrar novo aluno\n"
                                                         + "2 - Cadastrar aparelho\n"
                                                         + "3 - Cadastrar novo exercicio\n"
@@ -152,23 +149,32 @@ public class Gerenciador {
                                                 System.out.println(usuarioAtual.toString()+"NUMERO DE CADASTRO : "+numeroDeCadastro);
                                                 break;
                                         case 2:
-                    						Scanner inputNovaSenha = new Scanner(System.in);
+                                			Scanner inputNovaSenha = new Scanner(System.in);
                                         	System.out.println("Digite sua nova senha :");
-                    						String senhaNova = inputNovaSenha.nextLine();
-                    						try{
-                    						usuarioAtual.setSenha(senhaNova);
-                    						}catch(Exception e){
-                    							System.out.println(e.getMessage());
-                    						}
-                                        	break;
-                                        case 3:
-                                        	
-                                        	break;
-                                        
+	                    						String senhaNova = inputNovaSenha.nextLine();
+	                    						try{
+	                    						usuarioAtual.setSenha(senhaNova);
+	                    						}catch(Exception e){
+	                    							System.out.println(e.getMessage());
+	                    						}
+	                                        	break;
+	                                    case 3:
+	                                    		
+	                                    		if(usuarioAtual.getTreino().statusTreino()){
+	                                    			System.out.println("\n" + usuarioAtual.getTreino().toString());
+	                                    		}else{
+	                                    			System.out.println("\nO treino esta incompleto! Ainda nao pode ser visualisado.");
+	                                    		}
+	                                    			
+	                                        	break;
+	                                    case 4:
+	                                    	
+	                                    		break;
+	                                    	
                                         default:
-                    						break;
-                    					}
-                                } while (opcao3 != 3);
+                                                break;
+                                        }
+                                } while (opcao3 != 4);
 
                                 break;
 
@@ -215,7 +221,7 @@ public class Gerenciador {
         }
 
         private static void menuUsuario() {
-                System.out.println("\nMenu Usuario : \n 1 - Verificar dados \n 2 - Trocar senha \n 3 - Sair \nDigite a opcao desejada : ");
+        	System.out.print("\nMenu Usuario : \n 1 - Verificar dados \n 2 - Trocar senha \n 3 - Ver Treino \n 4 - Sair \nDigite a opcao desejada : ");
         }
 
         private static int readIntegerOption(String message, int lowerLimit,int upperLimit) {
@@ -273,7 +279,7 @@ public class Gerenciador {
                 try{
                         // verificar se a lista de aparelhos esta vazia
                         if(aparelhosSemExercicio == null|| aparelhosSemExercicio.size()==0){
-                                System.out.println("\nNão há nenhum aparelho cadastrado!");
+                                System.out.println("\nNao ha nenhum aparelho cadastrado!");
                                 throw new Exception();
                         }
                        
@@ -286,31 +292,31 @@ public class Gerenciador {
                         String nomeDoGrupoMuscular = input.nextLine();
                         
                         // imprime lista de aparelhos
-                        System.out.println("\nLista de aparelhos que ainda não estão associados a um exercicio:\n" +
+                        System.out.println("\nLista de aparelhos que ainda nao estao associados a um exercicio:\n" +
                                         aparelhosSemExercicio.toString());
                        
                         // pede nome de aparelho
                         System.out.print("\nDigite o nome de um aparelho: ");
                         String nomeDoAparelho = input.nextLine();
                        
-                        // verifica se as entradas são válidas
+                        // verifica se as entradas sao validas
                         if(nomeDoExercicio == null||nomeDoExercicio.replaceAll(" ","").equals("")|| nomeDoGrupoMuscular == null|| nomeDoGrupoMuscular.replaceAll(" ","").equals("")||
                                         nomeDoAparelho == null||nomeDoAparelho.replaceAll(" ","").equals("")){
-                                System.out.println("\nEntradas inválidas!");
+                                System.out.println("\nEntradas invalidas!");
                                 throw new Exception();
                         }
                        
-                        // verifica se o nome do exercicio já existe
+                        // verifica se o nome do exercicio ja existe
                         Iterator iterador = listaDeExercicio.iterator();
                         while(iterador.hasNext()){
                                 Exercicio exercicioExistente = (Exercicio) iterador.next();
                                 if(exercicioExistente.getNome().equalsIgnoreCase(nomeDoExercicio)){
-                                        System.out.println("\nExercicio já existente!");
+                                        System.out.println("\nExercicio ja existente!");
                                         throw new Exception();
                                 }
                         }
                         
-                        // verifica se o nome do grupo muscular existe, se não pergunta se pode criá-lo
+                        // verifica se o nome do grupo muscular existe, se nao pergunta se pode cria-lo
                         boolean grupoMuscularExiste = false;
                         Iterator iterador2 = gruposMusculares.iterator();
                         while(iterador2.hasNext()){
@@ -320,13 +326,13 @@ public class Gerenciador {
                             }
                         }
                         if(!(grupoMuscularExiste)){
-                        	System.out.print("\nGrupo muscular inexistente, deseja cadastra-lo? ");
+                        	System.out.print("\nGrupo muscular inexistente, deseja cadastra-lo? Digite sim se quiser cadastrar: ");
                         	String cadastraGrupoMuscular = input.nextLine();
                         	if(cadastraGrupoMuscular.equalsIgnoreCase("sim")){
                         		novoGrupoMuscular = new GrupoMuscular(nomeDoGrupoMuscular);
                         		gruposMusculares.add(novoGrupoMuscular);
                         	}else{
-                        		throw new Exception("\nGrupo muscular inválido!");
+                        		throw new Exception("\nGrupo muscular invalido!");
                         	}
            
                         }
@@ -348,7 +354,7 @@ public class Gerenciador {
                        
                        
                 }catch(Exception excecao){
-                        System.out.println("\nNão foi possivel cadastrar o exercicio!\n");
+                        System.out.println("\nNao foi possivel cadastrar o exercicio!\n");
                 }
         }
 
@@ -358,7 +364,7 @@ public class Gerenciador {
                 try{
                         // verificar se a lista de aparelhos esta vazia
                         if(aparelhosSemExercicio == null|| aparelhosSemExercicio.size()==0){
-                                System.out.println("\nNão há nenhum aparelho cadastrado!");
+                                System.out.println("\nNao ha nenhum aparelho cadastrado!");
                                 throw new Exception();
                         }
                        
@@ -372,40 +378,38 @@ public class Gerenciador {
                         System.out.print("\nDigite o nome do exercicio: ");
                         String nomeDoExercicio = input.nextLine();
                        
-                        // verifica se o nome do exercicio é válido
+                        // verifica se o nome do exercicio e valido
                         if(nomeDoExercicio == null||nomeDoExercicio.replaceAll(" ","").equals("")){
-                                System.out.println("\nNome inválido!");
+                                System.out.println("\nNome invalido!");
                                 throw new Exception();
                         }
                        
-                        // verifica se o nome do exercicio já existe, se sim, será possivel associar aparelho ao exercicio
-                        Iterator iterador = listaDeExercicio.iterator();
-                        while(iterador.hasNext()){
-                                Exercicio exercicioExistente = (Exercicio) iterador.next();
-                                if(exercicioExistente.getNome().equalsIgnoreCase(nomeDoExercicio)){
-                                        boolean status = true;
-                                        while(status){
-                                                // imprime lista de aparelhos
-                                                System.out.println("\nLista de aparelhos que ainda não estão associados a um exercicio:\n" +
-                                                                aparelhosSemExercicio.toString());
-                                                System.out.print("\nDigite o nome do aparelho que quer associar ao exercicio: ");
-                                                String aparelho = input.nextLine();
-                                               
-                                                if(verificaSeAparelhoExiste(aparelho)==null|| aparelho.equals("")){
-                                                        status = false;
-                                                        System.out.println("\nAlterações realizadas com sucesso!");
-                                                }else{
-                                                        exercicioExistente.addAparelho(verificaSeAparelhoExiste(aparelho));
-                                                        aparelhosSemExercicio.remove(verificaSeAparelhoExiste(aparelho));
-                                                        System.out.println("\nAparelho adicionado com sucesso!");
-                                                }
-                                        }
-                                }else{
-                                        System.out.println("Nome de exercicio inválido!");
-                                        break;
+                        // verifica se o nome do exercicio ja existe, se sim, sera possivel associar aparelho ao exercicio
+                        
+                        for(Exercicio exercicioExistente : listaDeExercicio){
+                        	if(exercicioExistente.getNome().equalsIgnoreCase(nomeDoExercicio)){
+                                boolean status = true;
+                                while(status){
+                                    // imprime lista de aparelhos
+                                    System.out.println("\nLista de aparelhos que ainda não estão associados a um exercicio:\n" +
+                                                    aparelhosSemExercicio.toString());
+                                    System.out.print("\nDigite o nome do aparelho que quer associar ao exercicio: ");
+                                    String aparelho = input.nextLine();
+                                   
+                                    if(verificaSeAparelhoExiste(aparelho)==null|| aparelho.equals("")){
+                                            status = false;
+                                            System.out.println("\nAlterações realizadas com sucesso!");
+                                    }else{
+                                            exercicioExistente.addAparelho(verificaSeAparelhoExiste(aparelho));
+                                            aparelhosSemExercicio.remove(verificaSeAparelhoExiste(aparelho));
+                                            System.out.println("\nAparelho adicionado com sucesso!");
+                                    }
                                 }
+                        	}else{
+                                System.out.println("Nome de exercicio inválido!");
+                                break;
+                            }
                         }
-                       
                        
                 }catch(Exception excecao){
                         System.out.println("Nao foi possivel alterar exercicio!");
@@ -413,19 +417,143 @@ public class Gerenciador {
                
         }
         
-        private static void editaTreino(){
-        	Scanner inputUsuario = new Scanner(System.in);
-            System.out.print("Digite o nome ou o nº de cadastro do aluno: ");
-            String usuario = inputUsuario.nextLine();
-            
+        private static void editaTreino()throws Exception{
         	
+        	Scanner input = new Scanner(System.in);
+            
+        	// recebe o nome ou o login do aluno como entrada 
+        	System.out.print("Digite o nome ou o login do aluno: ");
+            String usuarioEntrada = input.nextLine();
+            
+            Usuario usuario = verificaSeNomeouLoginExiste(usuarioEntrada);
+            
+            // verificar a entrada e valida
+            if(usuario != null){
+            	
+            	boolean status = true;
+            	
+            	while(status){       		
+            	
+	            	System.out.print("\nEscolha uma opcao: \n" +
+	            			"\n1 - Associar um grupo muscular ao treino" +
+	            			"\n2 - Associar um exercicio a um grupo muscular" +
+	            			"\n3 - Remover exercicio de um grupo muscular do treino" +
+	            			"\n4 - Status do Treino" +
+	            			"\n5 - Ver Treino" +
+	            			"\n6 - Sair" +
+	            			"\n\nDigite a opcao desejada: ");
+	            	
+	            	String opcao = input.nextLine();
+	            	
+	            	if(opcao.equals("1")){
+	            		
+	            		GrupoMuscular grupoMuscular = (GrupoMuscular) recebeGrupoMuscularExistente();
+	            		
+	            		if(grupoMuscular!=null){
+	            			usuario.getTreino().addGrupoMusucular(grupoMuscular);
+	            			System.out.println("\nGrupo muscular associado com sucesso!");
+	            		}
+	            		
+	            	}else if(opcao.equals("2")){
+	            		
+	            		Exercicio exercicio = (Exercicio) recebeExercicioExistente(recebeGrupoMuscularExistente()); 
+	            		
+	            		if(exercicio!=null){
+	            			usuario.getTreino().addExercicio(exercicio);
+	            			System.out.println("\nExercicio associado com sucesso!");
+	            		}
+	            		
+	            	}else if(opcao.equals("3")){
+	            		
+	            		Exercicio exercicio = (Exercicio) recebeExercicioExistente(recebeGrupoMuscularExistente());
+	            		
+	            		if(exercicio!=null){
+	            			usuario.getTreino().removeExercicio(exercicio);
+	            			System.out.println("\nExercicio removido com sucesso!");
+	            		}
+	            		
+	            	}else if(opcao.equals("4")){
+	            		
+	            		if(usuario.getTreino().statusTreino()){
+	            			System.out.println("\nO treino esta completo.");
+	            		}else{
+	            			System.out.println("\nO treino esta incompleto.");
+	            		}
+	            		
+	            	}else if(opcao.equals("5")){
+	            		
+	            		System.out.println(usuario.getTreino().toString());
+	            		
+	            	}else if(opcao.equals("6")){
+	            		
+	            		status = false;
+	            		
+	            	}else{
+	            		
+	            		System.out.println("\nOpcao invalida!");
+	            		
+	            	}	
+            	}	
+            }
         }
         
         private static void listaTreinosPendentes(){
         	
+        	String stringPendentes = "\n";
+        	
+        	for(Usuario usuario: listaDeUsuarios){
+        		if(!(usuario.getTreino().statusTreino())){
+        			stringPendentes += usuario.getNome() + "\n";
+        		}
+        	}
+        	
+        	if(stringPendentes.equals("\n")){
+        		System.out.println("\nNao ha treinos pendentes!");
+        	}else{
+        		System.out.println(stringPendentes);
+        	}
+        		
+        	
         }
         
-        private static void removeAparelho(){
+        private static boolean removeAparelho(){
+
+        	Scanner input = new Scanner(System.in);
+            
+        	// recebe o nome do aparelho 
+        	System.out.print("\nDigite o nome do aparelho: ");
+            String nomeDoAparelho = input.nextLine();
+        	
+            // verificar se o aparelho existe
+            for(Exercicio exercicio: listaDeExercicio){
+            	for(Aparelho aparelho: exercicio.getListaDeAparelho()){
+            		if(aparelho.getNome().equals(nomeDoAparelho)){
+            			
+            			System.out.print("\nDigite a quantidade de aparelhos que deseja remover: ");
+            			String quantidadeDeAparelho = input.nextLine();
+            			
+            			try{
+            				int quantDeAparelho = Integer.parseInt(quantidadeDeAparelho);
+            				
+            				if(aparelho.setQuantidadeDeAparelho(aparelho.getQuantidadeDeAparelho() - quantDeAparelho)){
+            					System.out.println("Remocao de aparelhos realizada com sucesso!");
+            					return true;
+            				}else{
+            					System.out.println("Nao foi possivel remover os aparelhos, devido a quantidade que voce digitou!");
+            					return false;
+            				}
+            					
+            			}catch (Exception excecao){
+            				System.out.println("\nCaracteres invalidos!");
+            				
+            			}
+            		}
+            	}
+            }
+            
+            System.out.println("\nNome de aparelho invalido!");
+        	
+        	return false;
         	
         }
        
@@ -439,6 +567,16 @@ public class Gerenciador {
                 }
                 return null;
         }
+        
+        private static Usuario verificaSeNomeouLoginExiste(String nomeOuLogin){
+        	for(Usuario usuario: listaDeUsuarios){
+            	if(nomeOuLogin.equalsIgnoreCase(usuario.getNome()) || 
+            			nomeOuLogin.equalsIgnoreCase(usuario.getLogin())){
+            		return usuario;
+            	}
+        	}
+        	return null;
+        }
        
         private static boolean verificaStringValido(String string){
         	if(string==null||string.replaceAll(" ", "").equals("")){
@@ -446,6 +584,60 @@ public class Gerenciador {
         	}else{
         		return true;
         	}
+        }
+        
+        
+        private static Exercicio recebeExercicioExistente(GrupoMuscular grupoMuscular){
+        	
+        	Scanner  input = new Scanner(System.in);
+        	      	
+        	System.out.print("\nDigite o nome exercicio: ");
+        	String stringExercicio = input.nextLine();
+        	
+        	try{
+        		for(Exercicio exercicio: listaDeExercicio){
+        			if(stringExercicio.equalsIgnoreCase(exercicio.getNome())){
+        				if(exercicio.getGrupoMuscular().equals(grupoMuscular)){
+        					return exercicio;
+        				}
+        			}
+        		}
+        		
+        		if(!(stringExercicio.equals("1"))){
+            		throw new Exception();
+            	}
+        		
+        	}catch (Exception excecao){
+        		System.out.println("\nExercicio invalido!\nPara cancelar esta operacao digite 1.\nTente Novamente");
+        		recebeExercicioExistente(grupoMuscular);
+        	}
+        	
+        	return null;   	
+        	        	
+        }
+        
+        private static GrupoMuscular recebeGrupoMuscularExistente()throws Exception{
+        	
+        	Scanner  input = new Scanner(System.in);
+        	
+        	System.out.print("\nDigite o nome do grupo muscular: ");
+        	String stringGrupoMuscular = input.nextLine();
+        	
+        	try{
+        		for(GrupoMuscular grupoMuscular: gruposMusculares){
+        			if(grupoMuscular.getGrupoMuscular().equalsIgnoreCase(stringGrupoMuscular)){
+        				return grupoMuscular;
+        			}
+        		}
+        		if(!(stringGrupoMuscular.equals("1"))){
+            		throw new Exception();
+            	}
+        	}catch (Exception excecao){
+        		System.out.println("\nGrupo muscular invalido!\nPara cancelar esta operacao digite 1.\nTente Novamente");
+        		recebeGrupoMuscularExistente();
+        	}
+        	
+        	return null;
         }
 
 }
