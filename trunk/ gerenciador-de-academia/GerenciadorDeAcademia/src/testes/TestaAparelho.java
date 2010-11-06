@@ -49,7 +49,7 @@ public class TestaAparelho {
 	@Test
 	public void testSetQuantidadeDeAparelho(){
 		Assert.assertTrue(aparelho1.setQuantidadeDeAparelho(2));
-		Assert.assertFalse(aparelho2.setQuantidadeDeAparelho(0));
+		Assert.assertTrue(aparelho2.setQuantidadeDeAparelho(0));
 		Assert.assertFalse(aparelho2.setQuantidadeDeAparelho(-3));
 	}
 	
