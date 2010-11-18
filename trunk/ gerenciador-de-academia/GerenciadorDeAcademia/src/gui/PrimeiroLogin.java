@@ -11,6 +11,8 @@
 
 package gui;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Abimael
@@ -38,7 +40,7 @@ public class PrimeiroLogin extends javax.swing.JPanel {
         jTextFieldNovaSenhaAdmin = new javax.swing.JTextField();
         jButtonLogarAdmin = new javax.swing.JButton();
 
-        jLabelSaudacao.setText("BEM VINDO!");
+        jLabelSaudacao.setText("Este é o seu primeiro login , por favor insira uma nova senha");
 
         jLabelLogin.setText("LOGIN :");
 
@@ -63,9 +65,6 @@ public class PrimeiroLogin extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addComponent(jLabelSaudacao))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -78,8 +77,11 @@ public class PrimeiroLogin extends javax.swing.JPanel {
                                 .addComponent(jTextFieldLoginAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(163, 163, 163)
-                        .addComponent(jButtonLogarAdmin)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                        .addComponent(jButtonLogarAdmin))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelSaudacao)))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -101,16 +103,27 @@ public class PrimeiroLogin extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonLogarAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogarAdminActionPerformed
-        try{
+       try{
+
+          if(  ControladorPrincipal.admin.getSenha().equals("")){
         ControladorPrincipal.admin.setSenha(jTextFieldNovaSenhaAdmin.getText());
-        }catch(Exception e){
-            System.out.print(e.getMessage());
-        }
         jTextFieldNovaSenhaAdmin.setText("");
         System.out.print(ControladorPrincipal.admin.getSenha());
         ControladorPrincipal.janela.setVisible(false);
         ControladorPrincipal.janela.setContentPane(ControladorPrincipal.menuAdmin);
         ControladorPrincipal.janela.setVisible(true);
+            }else if (jTextFieldNovaSenhaAdmin.getText().equals(  ControladorPrincipal.admin.getSenha())){
+                 jTextFieldNovaSenhaAdmin.setText("");
+                ControladorPrincipal.janela.setVisible(false);
+                 ControladorPrincipal.janela.setContentPane(ControladorPrincipal.menuAdmin);
+                 ControladorPrincipal.janela.setVisible(true);
+            }else {
+               ControladorPrincipal.admin.setSenha("");
+            }
+
+        }catch(Exception e){
+           JOptionPane.showMessageDialog(null,e.getMessage());
+        }
     }//GEN-LAST:event_jButtonLogarAdminActionPerformed
 
 

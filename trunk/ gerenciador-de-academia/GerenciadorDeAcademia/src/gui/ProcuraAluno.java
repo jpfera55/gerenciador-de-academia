@@ -11,6 +11,8 @@
 
 package gui;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Abimael
@@ -96,9 +98,11 @@ public class ProcuraAluno extends javax.swing.JPanel {
         for(int i = 0 ; i < ControladorPrincipal.listaDeUsuarios.size();i++){
            if( ControladorPrincipal.listaDeUsuarios.get(i).getNome().equals(nome)){
             jTextAreaDescricao.setText(ControladorPrincipal.listaDeUsuarios.get(i).toString());
+           return;
            }
 
         }
+        JOptionPane.showMessageDialog(null,"Aluno não encontrado");
     }//GEN-LAST:event_jButtonVisualizarActionPerformed
 
     private void jButtonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVoltarActionPerformed
