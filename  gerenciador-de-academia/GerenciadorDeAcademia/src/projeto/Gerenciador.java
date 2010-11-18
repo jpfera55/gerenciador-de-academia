@@ -69,7 +69,7 @@ public class Gerenciador {
                                         option2 = sc.nextInt();
                                         }catch(Exception e){
                                         	System.out.println("Opcao invalida");
-                                        	option2 = 9;
+                                        	option2 = 8;
                                         }
                                         switch (option2) {
 
@@ -128,7 +128,7 @@ public class Gerenciador {
                                         default:
                                                 break;
                                         }
-                                } while (option2 != 5);// numero de opcoes do segundo menu
+                                } while (option2 != 8);// numero de opcoes do segundo menu
 
                                 break;
 
