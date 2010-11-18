@@ -124,7 +124,7 @@ public class MenuAdmin extends javax.swing.JPanel {
 
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
         ControladorPrincipal.janela.setVisible(false);
-        ControladorPrincipal.janela.setContentPane(ControladorPrincipal.primeiroLogin);
+        ControladorPrincipal.janela.setContentPane(ControladorPrincipal.loginGeral);
         ControladorPrincipal.janela.setVisible(true);
 
     }//GEN-LAST:event_jButtonSairActionPerformed

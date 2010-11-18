@@ -10,6 +10,7 @@
  */
 
 package gui;
+import javax.swing.JOptionPane;
 import projeto.Usuario;
 /**
  *
@@ -176,8 +177,10 @@ public class CadastraAluno extends javax.swing.JPanel {
             jTextFieldLogin.setText("");
             jTextFieldProblema.setText("");
             jTextFieldData.setText("");
+            JOptionPane.showMessageDialog(null,"Usuario Cadastrado!");
         }catch(Exception e){
             System.out.print(e.getMessage());
+            JOptionPane.showMessageDialog(null,e.getMessage());
         }
     }//GEN-LAST:event_jButtonCadastrarAlunoActionPerformed
 
