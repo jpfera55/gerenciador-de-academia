@@ -40,10 +40,15 @@ public class PrimeiroLogin extends javax.swing.JPanel {
         jTextFieldNovaSenhaAdmin = new javax.swing.JTextField();
         jButtonLogarAdmin = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(600, 400));
+
+        jLabelSaudacao.setFont(new java.awt.Font("Arial", 1, 18));
         jLabelSaudacao.setText("Este é o seu primeiro login , por favor insira uma nova senha");
 
+        jLabelLogin.setFont(new java.awt.Font("Arial", 1, 14));
         jLabelLogin.setText("LOGIN :");
 
+        jLabelSenha.setFont(new java.awt.Font("Arial", 1, 14));
         jLabelSenha.setText("SENHA :");
 
         jTextFieldLoginAdmin.setEditable(false);
@@ -52,6 +57,7 @@ public class PrimeiroLogin extends javax.swing.JPanel {
         jTextFieldNovaSenhaAdmin.setText("Nova Senha");
 
         jButtonLogarAdmin.setText("LOGAR");
+        jButtonLogarAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButtonLogarAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonLogarAdminActionPerformed(evt);
@@ -62,43 +68,41 @@ public class PrimeiroLogin extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelSaudacao)
+                .addGap(75, 75, 75))
             .addGroup(layout.createSequentialGroup()
+                .addGap(171, 171, 171)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelLogin)
+                    .addComponent(jLabelSenha))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelSenha)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldNovaSenhaAdmin))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabelLogin)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldLoginAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(jButtonLogarAdmin))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelSaudacao)))
-                .addContainerGap(119, Short.MAX_VALUE))
+                    .addComponent(jTextFieldLoginAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                    .addComponent(jTextFieldNovaSenhaAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
+                .addGap(186, 186, 186))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(304, 304, 304)
+                .addComponent(jButtonLogarAdmin)
+                .addContainerGap(245, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelSaudacao)
-                .addGap(98, 98, 98)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelLogin)
-                    .addComponent(jTextFieldLoginAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldLoginAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelLogin))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelSenha)
-                    .addComponent(jTextFieldNovaSenhaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                    .addComponent(jTextFieldNovaSenhaAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelSenha))
+                .addGap(106, 106, 106)
                 .addComponent(jButtonLogarAdmin)
-                .addGap(42, 42, 42))
+                .addGap(46, 46, 46))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -109,7 +113,7 @@ public class PrimeiroLogin extends javax.swing.JPanel {
         ControladorPrincipal.admin.setSenha(jTextFieldNovaSenhaAdmin.getText());
         jTextFieldNovaSenhaAdmin.setText("");
         System.out.print(ControladorPrincipal.admin.getSenha());
-        ControladorPrincipal.janela.setVisible(false);
+        //ControladorPrincipal.janela.setVisible(false);
         ControladorPrincipal.janela.setContentPane(ControladorPrincipal.menuAdmin);
         ControladorPrincipal.janela.setVisible(true);
             }else if (jTextFieldNovaSenhaAdmin.getText().equals(  ControladorPrincipal.admin.getSenha())){

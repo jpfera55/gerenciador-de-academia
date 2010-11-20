@@ -90,7 +90,7 @@ public class MenuAluno extends javax.swing.JPanel {
                             .addComponent(jButtonVerDados))
                         .addGap(73, 73, 73)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(238, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,12 +109,12 @@ public class MenuAluno extends javax.swing.JPanel {
                     .addComponent(jButtonSair)
                     .addComponent(jButtonAlterarSenha)
                     .addComponent(jTextFieldNovaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36))
+                .addGap(136, 136, 136))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
-       ControladorPrincipal.janela.setVisible(false);
+       //ControladorPrincipal.janela.setVisible(false);
         ControladorPrincipal.janela.setContentPane(ControladorPrincipal.loginGeral);
         ControladorPrincipal.janela.setVisible(true);
         jTextArea1.setText("");
