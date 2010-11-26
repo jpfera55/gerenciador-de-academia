@@ -5,6 +5,11 @@ package gui;
  */
 import java.util.*;
 import javax.swing.*;
+import persistencia.GravaELerExercicio;
+import persistencia.GravaLerAdmin;
+import persistencia.GravaLerAparelho;
+import persistencia.GravaLerGrupoMuscular;
+import persistencia.GravaLerUsuario;
 import projeto.Administrador;
 import projeto.Usuario;
 import projeto.Aparelho;
@@ -34,30 +39,75 @@ public class ControladorPrincipal {
     public static List<GrupoMuscular> gruposMusculares ;
     public static GrupoMuscular grupoMuscularExistente, novoGrupoMuscular;
     public static Exercicio exercicioSendoEditado;
-
+    public static GravaLerUsuario gravaELer;
+    public static GravaLerAparelho gravaLerAparelho;
+    public static GravaELerExercicio gravaLerExercicio;
+    public static GravaLerGrupoMuscular gravaLerGrupos;
+    public static GravaLerAdmin gravaLerAdmin;
+    public static List<Administrador> listaAdmin ;
     public static void main(String[] args){
-
-        listaDeUsuarios = new ArrayList<Usuario>();
-        aparelhos = new ArrayList<Aparelho>();
-        gruposMusculares = new ArrayList<GrupoMuscular>();
-        listaDeExercicio = new ArrayList<Exercicio>();
-        admin = new Administrador();
+        gravaLerAdmin = new GravaLerAdmin();
+        gravaELer =  new GravaLerUsuario();
+        gravaLerAparelho = new GravaLerAparelho();
+        gravaLerExercicio = new GravaELerExercicio();
+        gravaLerGrupos = new GravaLerGrupoMuscular();
+        loginGeral = new LoginGeral();
+        primeiroLogin = new PrimeiroLogin();
         janela = new Janela();
+        try{
+          listaDeUsuarios = gravaELer.lerUsuario(listaDeUsuarios) ;
+        }catch(Exception e){
+            listaDeUsuarios = new ArrayList<Usuario>();
+            
+        }
+        try{
+          aparelhos = gravaLerAparelho.lerAparelho(aparelhos) ;
+        }catch(Exception e){
+            aparelhos = new ArrayList<Aparelho>();
+
+        }
+          try{
+          listaDeExercicio = gravaLerExercicio.lerUsuario(listaDeExercicio) ;
+        }catch(Exception e){
+            listaDeExercicio = new ArrayList<Exercicio>();
+
+        }
+            try{
+          gruposMusculares = gravaLerGrupos.lerGrupo(gruposMusculares) ;
+        }catch(Exception e){
+           gruposMusculares = new ArrayList<GrupoMuscular>();
+
+        }
+      try{
+          listaAdmin = gravaLerAdmin.lerAdministrador(listaAdmin);
+          admin = listaAdmin.get(0);
+          janela.setVisible(true);
+          janela.setContentPane(loginGeral);
+
+      }catch(Exception e){
+          admin = new Administrador();
+          listaAdmin = new ArrayList<Administrador>();
+          janela.setVisible(true);
+          janela.setContentPane(primeiroLogin);
+
+      }
+        
+        
+        
+    
+        
+        
         treinoPendentes = new TreinoPendentes();
         menuAluno = new MenuAluno();
         menuAdmin = new MenuAdmin();
-        loginGeral = new LoginGeral();
-        primeiroLogin = new PrimeiroLogin();
         cadastraAluno = new CadastraAluno();
         remocaoDeAparelhos = new RemocaoAparelhos();
         escolheExercicio = new EscolheExercicio();
-        //editaExercicio = new EditaExercicio();
         cadastraExercicio = new CadastraExercicio();
         primeiroLogin.setVisible(true);
         procuraAluno = new ProcuraAluno();
         cadastraAparelho = new CadastraAparelho();
-        janela.setVisible(true);
-        janela.setContentPane(primeiroLogin);
+     
 
 
         
