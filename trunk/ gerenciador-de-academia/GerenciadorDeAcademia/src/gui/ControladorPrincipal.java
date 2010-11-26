@@ -28,6 +28,8 @@ public class ControladorPrincipal {
     public static JPanel cadastraAparelho;
     public static JPanel escolheExercicio;
     public static JPanel editaExercicio;
+    public static JPanel treinoPendentes;
+    public static JPanel remocaoDeAparelhos;
     public static List<Exercicio> listaDeExercicio ;
     public static List<GrupoMuscular> gruposMusculares ;
     public static GrupoMuscular grupoMuscularExistente, novoGrupoMuscular;
@@ -41,11 +43,13 @@ public class ControladorPrincipal {
         listaDeExercicio = new ArrayList<Exercicio>();
         admin = new Administrador();
         janela = new Janela();
+        treinoPendentes = new TreinoPendentes();
         menuAluno = new MenuAluno();
         menuAdmin = new MenuAdmin();
         loginGeral = new LoginGeral();
         primeiroLogin = new PrimeiroLogin();
         cadastraAluno = new CadastraAluno();
+        remocaoDeAparelhos = new RemocaoAparelhos();
         escolheExercicio = new EscolheExercicio();
         //editaExercicio = new EditaExercicio();
         cadastraExercicio = new CadastraExercicio();
