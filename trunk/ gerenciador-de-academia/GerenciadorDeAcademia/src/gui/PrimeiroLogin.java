@@ -111,6 +111,13 @@ public class PrimeiroLogin extends javax.swing.JPanel {
 
           if(  ControladorPrincipal.admin.getSenha().equals("")){
         ControladorPrincipal.admin.setSenha(jTextFieldNovaSenhaAdmin.getText());
+        ControladorPrincipal.listaAdmin.add(ControladorPrincipal.admin);
+         try{
+        ControladorPrincipal.gravaLerAdmin.gravaAdmin(ControladorPrincipal.listaAdmin);
+              }catch(Exception e){
+                  System.out.print("Erro");
+                         
+              }
         jTextFieldNovaSenhaAdmin.setText("");
         System.out.print(ControladorPrincipal.admin.getSenha());
         //ControladorPrincipal.janela.setVisible(false);
