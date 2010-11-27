@@ -17,7 +17,7 @@ import projeto.Exercicio;
 
 /**
  *
- * @author Diego Pereira
+ * @author Abimael
  */
 public class RemocaoAparelhos extends javax.swing.JPanel {
 
@@ -134,37 +134,36 @@ public class RemocaoAparelhos extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonListarAparelhosActionPerformed
 
     private void jButtonRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverActionPerformed
-        // recebe o nome do aparelho
-            //System.out.print("\nDigite o nome do aparelho: ");
+        
             String nomeDoAparelho = list1.getSelectedItem();
 
-            // verificar se o aparelho existe
+          
             for(Exercicio exercicio: ControladorPrincipal.listaDeExercicio){
             	for(Aparelho aparelho: exercicio.getListaDeAparelho()){
             		if(aparelho.getNome().equals(nomeDoAparelho)){
 
-            			//System.out.print("\nDigite a quantidade de aparelhos que deseja remover: ");
+            	
             			Integer quantidadeDeAparelho = (Integer) jSpinnerQtdAparelhos.getValue();
                                  if (quantidadeDeAparelho <= 0){
                                        JOptionPane.showMessageDialog(null,"Quantidade invalida!");
                                        return;
                                  }
             			try{
-            				//int quantDeAparelho = Integer.parseInt(quantidadeDeAparelho);
+            		
 
             				if(aparelho.setQuantidadeDeAparelho(aparelho.getQuantidadeDeAparelho() - quantidadeDeAparelho)){
             				JOptionPane.showMessageDialog(null,"Remocao de aparelhos realizada com sucesso!");
-                                            //System.out.println("Remocao de aparelhos realizada com sucesso!");
+                                   
             			              System.out.println(aparelho.getQuantidadeDeAparelho());
             				}else{
             				     	JOptionPane.showMessageDialog(null,"Nao foi possivel remover os aparelhos, devido a quantidade que voce digitou!");
-                                            //System.out.println("Nao foi possivel remover os aparelhos, devido a quantidade que voce digitou!");
-            					//return false;
+                                       
+      
             				}
 
             			}catch (Exception excecao){
             			   JOptionPane.showMessageDialog(null,"Caracteres invalidos!");
-                                    //System.out.println("\nCaracteres invalidos!");
+                                
 
             			}
             		}

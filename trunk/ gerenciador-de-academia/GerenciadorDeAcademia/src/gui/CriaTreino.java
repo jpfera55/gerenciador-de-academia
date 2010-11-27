@@ -17,7 +17,7 @@ import projeto.GrupoMuscular;
 import java.util.*;
 /**
  *
- * @author Diego Pereira
+ * @author abimaelsm
  */
 public class CriaTreino extends javax.swing.JPanel {
     private GrupoMuscular grupo ;

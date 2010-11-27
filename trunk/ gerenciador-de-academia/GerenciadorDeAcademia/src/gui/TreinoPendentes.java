@@ -15,7 +15,7 @@ import projeto.Usuario;
 
 /**
  *
- * @author Diego Pereira
+ * @author Abimael
  */
 public class TreinoPendentes extends javax.swing.JPanel {
 
